@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vaishal S | IT Help Desk & Support Executive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<style>
+:root {
+  --color-black: #000;
+  --color-white: #fff;
+  --color-blue: #14213d;
+  --color-orange: #fca311;
+  --color-light: #e5e5e5;
+  --exp-title: #0F828C;
+
+  --main-bg: var(--color-black);
+  --text-color: var(--color-light);
+
+  --sidebar-bg: #191c24;
+  --sidebar-text: var(--color-light);
+  --sidebar-active-bg: var(--color-blue);
+  --sidebar-active-text: var(--color-orange);
+  --sidebar-bullet-bg: #14213d;
+  --sidebar-bullet-active: var(--color-orange);
+
+  --dropdown-bg: #191c24;
+  --dropdown-title-color: var(--color-white);
+  --dropdown-hover-bg: #252f3f;
+  --dropdown-btn-text: var(--color-light);
+
+  --content-bg: transparent;
+  --section-title-color: var(--color-orange);
+
+  --switch-bar-bg: var(--color-blue);
+  --switch-knob-bg: var(--color-orange);
+
+  --footer-bg: #16181D;
+  --footer-btn-bg: #232532;
+  --footer-btn-hover: #302E44;
+  --footer-btn-text: #fff;
+  --footer-btn-border: #313640;
+  --footer-gap: 1cm; /* Footer offset gap above footer */
+}
+
+html.light-mode {
+  --main-bg: var(--color-white);
+  --text-color: #222;
+
+  --sidebar-bg: #f5f5f8;
+  --sidebar-text: #232324;
+  --sidebar-active-bg: var(--color-blue);
+  --sidebar-active-text: var(--color-orange);
+  --sidebar-bullet-bg: #e3e3ee;
+  --sidebar-bullet-active: var(--color-orange);
+
+  --dropdown-bg: #f9f9fa;
+  --dropdown-title-color: #232324;
+  --dropdown-hover-bg: #efefef;
+  --dropdown-btn-text: #232324;
+
+  --content-bg: transparent;
+  --section-title-color: var(--color-orange);
+
+  --switch-bar-bg: var(--color-orange);
+  --switch-knob-bg: var(--color-blue);
+
+  --footer-bg: #e7e7ef;
+  --footer-btn-bg: #f1f1f7;
+  --footer-btn-hover: #e6e6e9;
+  --footer-btn-text: #333;
+  --footer-btn-border: #cacad6;
+}
+
+body {
+  background: var(--main-bg);
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  transition: background .22s, color .22s;
+  overflow-x: hidden;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--main-bg);
+  border-bottom: 2px solid var(--color-blue);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.22);
+  transition: background .22s;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  gap: 20px;
+}
+
+.profilepic-card {
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: linear-gradient(160deg, #14213d 14%, #fca31133 89%);
+  box-shadow: 0 8px 42px rgba(0,0,0,.4);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.profilepic-card img {
+  border-radius: 20px;
+  object-fit: cover;
+  width: 170px; height: 170px;
+}
+
+.greetings-wrap { flex: 1; min-width: 0; }
+.greetings { font-size: 2rem; font-weight: 700; color: var(--color-orange); }
+.designation { font-size: 1.2rem; font-weight: 700; color: var(--exp-title); }
+.ist-time { font-size: 1.07rem; color: var(--exp-title); font-weight: 600; }
+
+.getintouch-mode-row {
+  display: flex;
+  align-items: center;
+  gap: 1cm !important;
+  /* Padding for exact alignment as in screenshot */
+}
+
+.getintouch-wrap {
+  position: relative;
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Dropdown */
+.getintouch-btn {
+  background: var(--color-orange);
+  color: var(--color-black);
+  padding: 11px 24px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor:pointer;
+  display: flex; align-items: center; gap: 8px; font-size: 1rem;
+  box-shadow: 0 8px 30px #fca3112a;
+  margin-top: 10px;
+  transition: background .13s, color .13s;
+}
+.getintouch-btn:hover { background: var(--color-blue); color: var(--color-white); }
+.dropdown-bg {
+  display: none;
+  position: absolute;
+  top: 62px; right: 0;
+  background: var(--dropdown-bg);
+  border: 1.5px solid var(--color-blue);
+  border-radius: 15px;
+  padding: 15px;
+  z-index: 200;
+  min-width: 270px;
+  box-shadow: 0 12px 38px #14213d48;
+}
+.dropdown-bg.show { display:block; }
+.dropdown-title {
+  font-size: 1.12em;
+  font-weight: 700;
+  color: var(--dropdown-title-color);
+  margin-bottom: 12px;
+  margin-left: 4px;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--color-blue);
+  padding-bottom: 5px;
+}
+.dropdown-contact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(104px,1fr)); gap: 10px;
+}
+.dropdown-btn {
+  color: var(--dropdown-btn-text);
+  text-decoration: none;
+  display:flex;align-items:center;gap:8px;
+  font-size:.97rem; border-radius:11px; background:none; padding:6px 8px;
+  transition: color .14s, background .12s, transform .13s;
+}
+.dropdown-btn:hover {
+  color: var(--color-orange);
+  background: var(--dropdown-hover-bg);
+  transform:scale(1.08);
+}
+.dropdown-btn i, .dropdown-btn svg, .dropdown-btn img {
+  font-size: 1.22rem; width: 30px; text-align: center;
+}
+
+/* Mode Toggle */
+.mode-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.mode-toggle-label { color:var(--exp-title); font-weight:600; cursor:pointer; }
+.mode-toggle-btn {
+  width: 41px; height: 21px;
+  border-radius:10px;
+  border:1.2px solid var(--color-orange);
+  background: var(--switch-bar-bg);
+  cursor: pointer;
+  transition: background .22s, border .12s;
+  display: inline-block;
+  position: relative;
+}
+.mode-toggle-btn-inner {
+  width:17px; height:17px; background:var(--switch-knob-bg);
+  border-radius:50%; position:absolute; top:2px; left:3px; transition:left .21s, background .18s;
+}
+.mode-toggle-btn[data-mode="light"] .mode-toggle-btn-inner { left: 21px; }
+
+.main-layout-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: calc(192px + 2cm);
+  min-height: calc(100vh - 192px - 2cm); /* ensure tall enough layout */
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding-bottom: calc(64px + 1cm); /* 64px footer + 1cm gap */
+}
+
+.timeline-column {
+  min-width: 200px;
+  width:200px;
+  max-width:240px;
+  padding: 22px 6px 22px 0;
+  background: var(--sidebar-bg);
+  border-radius: 19px;
+  box-shadow: 0 3px 15px #14213d22;
+  margin-right: 34px;
+  display: flex; flex-direction: column; gap: 28px; align-items: flex-start;
+  position: relative;
+  height: fit-content;
+  transition: background .21s;
+}
+.timeline-column-title {
+  color: var(--color-orange);
+  font-size: 1.17rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  letter-spacing: .06em;
+  padding-left: 19px;
+  padding-top: 8px;
+  border-bottom: 2px solid var(--color-blue);
+}
+.timeline-list { width: 100%; display: flex; flex-direction: column; gap: 0; align-items: flex-start; }
+.timeline-item {
+  display: flex; align-items: center; gap:11px;
+  font-weight: 600; color: var(--sidebar-text);
+  font-size: 1.08rem; padding:12px 6px 12px 19px;
+  border-radius: 8px;
+  transition: background .18s, color .15s;
+  width: 90%;
+  margin-bottom: 2px;
+  background: transparent;
+}
+.timeline-item .timeline-bullet {
+  width:17px; height:17px; flex-shrink:0;
+  border-radius:50%; background: var(--sidebar-bullet-bg);
+  border: 2.3px solid transparent;
+  transition: border .2s;
+  display:inline-block; margin-right:2px;
+}
+.timeline-item.active {
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+  font-weight: 700;
+}
+.timeline-item.active .timeline-bullet {
+  background: var(--sidebar-bullet-active);
+  border:2.3px solid var(--color-orange);
+}
+.timeline-item:hover, .timeline-item:focus {
+  background: var(--color-blue);
+  color: var(--color-orange);
+}
+
+.toggle-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-top: 8px;
+  margin-bottom: 22px;
+  padding-left: 0;
+}
+.switch-label {
+  font-weight:600; color:var(--color-blue); font-size:1.02rem;
+  min-width: 100px; text-align:right;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+  vertical-align: middle;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--switch-bar-bg);
+  transition: .2s; border-radius: 30px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px; width: 22px; left: 3px; bottom: 3px;
+  background: var(--switch-knob-bg);
+  transition: .2s; border-radius: 50%; box-shadow: 0 2px 8px #0002;
+}
+input:checked + .slider {
+  background: var(--switch-knob-bg);
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+  background: var(--switch-bar-bg);
+}
+
+.main-content { flex:1; min-width:0; padding-right: 20px; padding-left: 15px; margin-top:0; background:var(--content-bg); max-width:820px; }
+.section-content { background:var(--content-bg); margin-bottom: 2.3rem; display:none; width:100%; animation: fadeIn .5s; }
+.section-content.active { display:block; }
+.main-content.full-profile .section-content { display: block !important; }
+.section-title { color: var(--section-title-color); font-size: 1.25rem; font-weight: 800; border-bottom: 2px solid var(--color-blue); margin-bottom: 1.23rem; letter-spacing: 0.09em; padding-bottom: .45rem; margin-top: 0; }
+.section-content ul { margin:0 0 0 24px; padding:0; list-style: disc; color: var(--text-color); font-size: 1.08rem; }
+.section-content ul li { margin-bottom: .7rem; font-size: 1rem; line-height: 1.7; }
+.job-title, .current-job { color: var(--exp-title); font-weight: 700; margin-top: 1.5rem; font-size: 1.09em; display:block; margin-bottom:0.26rem; }
+.current-job { font-size: 1.14em; margin-top: 1.5rem; margin-bottom:0.1rem;}
+.job-period { color: var(--color-orange); font-weight: 500; margin-left: 6px; }
+.aboutme-paragraph {
+  color: var(--text-color); font-size: 1.13rem;
+  line-height: 1.8; font-weight: 500; margin-bottom: 0; margin-top: 0;
+  user-select: text; width: 100%; max-width: 800px;
+  letter-spacing: 0.01em; text-align: justify; padding: 6px 0 0 0; transition:color .2s;
+}
+
+.footer-space {
+  height: var(--footer-gap);
+  width: 100%;
+  display: block;
+}
+
+.main-footer {
+  background: var(--footer-bg);
+  border-top: 1.7px solid var(--color-blue);
+  box-shadow: 0 8px 32px #0c0c0f2c;
+  display: flex; justify-content: center; align-items: center; gap: 18px;
+  padding: 21px 5px;
+  position: fixed; left: 0; right: 0; bottom: 0; z-index:104;
+  min-height: 64px;
+  transition:background .18s;
+}
+.footer-btn {
+  background: var(--footer-btn-bg);
+  color: var(--footer-btn-text);
+  font-weight: 700;
+  border: none;
+  border-radius: 17px;
+  padding: 10px 25px;
+  font-size: 1.03rem;
+  box-shadow: 0 2px 13px #191c2438;
+  cursor: pointer;
+  transition: background .16s, color .15s, transform .13s;
+  letter-spacing: .06em;
+  outline: none;
+  border: 1.4px solid var(--footer-btn-border);
+  margin: 0;
+  min-width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer-btn:hover, .footer-btn:focus {
+  background: var(--footer-btn-hover);
+  color: var(--color-orange);
+  transform: scale(1.06);
+  border-color: var(--color-orange);
+  box-shadow: 0 3px 18px #23253255;
+}
+@media (max-width:700px){
+  .main-footer{flex-wrap: wrap; gap:10px; padding:10px 2px; min-height:56px;}
+  .footer-btn{padding:8px 10px;font-size:.97rem;min-width:80px;}
+  .main-layout-wrapper{padding-bottom:calc(80px + 1cm);}
+}
+.modal-status {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(10,12,17,0.25); display: flex; align-items: center; justify-content: center; z-index:99999;
+  pointer-events: all;
+}
+.modal-content {
+  background: var(--modal-bg);
+  color: var(--color-orange);
+  font-weight: 700;
+  border-radius: 15px;
+  box-shadow: 0 8px 38px #191c2458;
+  font-size: 1.2rem;
+  padding: 32px 42px;
+  text-align: center;
+  min-width: 220px;
+  max-width: 80vw;
+  border: 1.5px solid var(--color-blue);
+  letter-spacing: .09em;
+  transition: all .2s;
+}
+</style>
+</head>
+<body>
+<header class="fixed-header">
+  <div class="header-content">
+    <div class="profilepic-card">
+      <img src="profilepic.jpg" alt="Profile">
+    </div>
+    <div class="greetings-wrap">
+      <div class="greetings">Hello, I'm Vaishal</div>
+      <div class="designation">Freelance IT Help Desk &amp; Support Executive</div>
+      <div class="ist-time" id="currentISTtime"></div>
+    </div>
+    <div class="getintouch-mode-row">
+      <div class="getintouch-wrap">
+        <button class="getintouch-btn" id="getInTouchBtn">
+          <i class="fas fa-paper-plane"></i>Get in touch <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-bg" id="dropdownMenu">
+          <div class="dropdown-title">Get in Touch</div>
+          <div class="dropdown-contact-grid">
+            <a href="tel:+919500333183" class="dropdown-btn"><i class="fas fa-phone" style="color:#50bcff"></i><span>Contact</span></a>
+            <a href="https://wa.me/+919500333183" class="dropdown-btn"><i class="fab fa-whatsapp" style="color:#25d366"></i><span>WhatsApp</span></a>
+            <a href="https://www.linkedin.com/in/freelancer-vaishal" class="dropdown-btn"><i class="fab fa-linkedin" style="color:#0077b5"></i><span>LinkedIn</span></a>
+            <a href="https://www.naukri.com/mnjuser/profile?id=&altresid" class="dropdown-btn" target="_blank" rel="noopener noreferrer">
+              <img src="https://pnghdpro.com/naukri-app-icon/" alt="Naukri" style="width: 20px; height: 20px; border-radius: 3px; object-fit: contain; background: #fff; display: inline-block;"/>
+              <span>Naukri</span>
+            </a>
+            <a href="mailto:vaishrkz08@gmail.com" class="dropdown-btn"><i class="fas fa-envelope" style="color:#ea4335"></i><span>Email</span></a>
+            <a href="https://github.com/svaishal" class="dropdown-btn"><i class="fab fa-github" style="color:#333"></i><span>GitHub</span></a>
+            <a href="resume.pdf" download class="dropdown-btn"><i class="fas fa-download" style="color:#2ed96f"></i><span>Resume</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="mode-toggle-wrap">
+        <span class="mode-toggle-label" id="modeText">Dark Mode</span>
+        <span class="mode-toggle-btn" id="modeToggleBtn" data-mode="dark" role="button" tabindex="0" aria-label="Toggle dark/light mode">
+          <span class="mode-toggle-btn-inner"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main-layout-wrapper">
+  <!-- Sidebar navigation -->
+  <nav class="timeline-column" aria-label="Section Timeline">
+    <div class="timeline-column-title">Quick overview</div>
+    <div class="timeline-list">
+      <div class="timeline-item active" data-section="about"><span class="timeline-bullet"></span>About</div>
+      <div class="timeline-item" data-section="skills"><span class="timeline-bullet"></span>Skills</div>
+      <div class="timeline-item" data-section="exp"><span class="timeline-bullet"></span>Experience</div>
+      <div class="timeline-item" data-section="edu"><span class="timeline-bullet"></span>Education</div>
+      <div class="timeline-item" data-section="lang"><span class="timeline-bullet"></span>Languages</div>
+      <div class="timeline-item" data-section="tools"><span class="timeline-bullet"></span>Software &amp; Tools</div>
+      <div class="timeline-item" data-section="interests"><span class="timeline-bullet"></span>Interests</div>
+    </div>
+  </nav>
+  <!-- Content area -->
+  <div class="main-content" id="contentArea">
+    <div class="toggle-switch-row">
+      <span class="switch-label">Quick overview</span>
+      <label class="switch" aria-label="Toggle profile view">
+        <input type="checkbox" id="toggleSwitch" />
+        <span class="slider"></span>
+      </label>
+      <span class="switch-label">Profile view</span>
+    </div>
+    <section class="section-content active" id="about">
+      <div class="section-title">About</div>
+      <p class="aboutme-paragraph">
+        Seeking an opportunity to utilize my technical expertise to provide timely, cost-effective IT support and maintenance in a challenging environment. Passionate and dedicated to work with Team. Provided best support to clients such as configuration of software, installation and troubleshooting of computer hardware and software. Participated in the testing and evaluation of new hardware and software to implement for client needs.
+      </p>
+    </section>
+    <section class="section-content" id="skills">
+      <div class="section-title">Skills</div>
+      <ul>
+        <li>Quick Learner</li>
+        <li>Time Management</li>
+        <li>Remote Support</li>
+        <li>Desktop Support</li>
+        <li>Troubleshooting</li>
+        <li>Basic Networking</li>
+        <li>Software/Hardware Installation & Updates</li>
+        <li>User Training & Productivity Improvement</li>
+        <li>HIS Coordination & Maintenance</li>
+        <li>Firewall & Network Monitoring</li>
+        <li>Asset Inventory Management</li>
+      </ul>
+    </section>
+    <section class="section-content" id="exp">
+      <div class="section-title">Experience</div>
+      <div class="current-job">
+        Freelance L1 – IT Help Desk &amp; Support Executive
+        <span class="job-period">(Dec. 2020 – Present)</span>
+      </div>
+      <ul>
+        <li>Provided support for software/hardware installation, troubleshooting, and remote IT support for clients.</li>
+        <li>Maintained flawless experience with Hospital Information System (HIS).</li>
+        <li>Handled firewall, network, asset inventory, and user credential management.</li>
+      </ul>
+      <div class="job-title">
+        Effitrac Solutions – Implementation &amp; Support Engineer <span class="job-period">(Dec. 2019 – Jul. 2020)</span>
+      </div>
+      <ul>
+        <li>ERP Software Implementation &amp; 24/7 Support (HRMS, Payroll, Production, Billing, Accounting).</li>
+        <li>Server maintenance and client device configuration.</li>
+      </ul>
+    </section>
+    <section class="section-content" id="edu">
+      <div class="section-title">Education</div>
+      <ul>
+        <li>Master of Commerce (M.Com) – 83% CGPA, Apr. 2022 | Rathinam College of Arts &amp; Science, Coimbatore</li>
+        <li>Bachelor of Commerce (B.Com) – 63% CGPA, Apr. 2020 | Rathinam College of Arts &amp; Science, Coimbatore</li>
+        <li>DevOps Certification Training <em>(In Progress)</em>, Aug. 2025 | StarAgile Institute</li>
+      </ul>
+    </section>
+    <section class="section-content" id="lang">
+      <div class="section-title">Languages</div>
+      <ul>
+        <li>Tamil (Read / Write)</li>
+        <li>English (Read / Write)</li>
+      </ul>
+    </section>
+    <section class="section-content" id="tools">
+      <div class="section-title">Software &amp; Tools</div>
+      <ul>
+        <li>Microsoft Office Suite</li>
+        <li>Google Workspace</li>
+        <li>Cloud Computing</li>
+        <li>Linux Basics</li>
+        <li>Proxmox</li>
+        <li>Firewall / VPN</li>
+        <li>HIS ERP</li>
+        <li>Ticket Documentation System</li>
+      </ul>
+    </section>
+    <section class="section-content" id="interests">
+      <div class="section-title">Interests</div>
+      <ul>
+        <li>Reading</li>
+        <li>New Tech Stuff</li>
+        <li>Gaming</li>
+        <li>Opensource GIT</li>
+      </ul>
+    </section>
+    <!-- exactly 1cm space before the footer for visual separation -->
+    <div class="footer-space"></div>
+  </div>
+</div>
+
+<footer class="main-footer" role="contentinfo">
+  <button class="footer-btn" data-status="Achievements"><i class="fas fa-trophy" style="margin-right:7px;"></i>Achievements</button>
+  <button class="footer-btn" data-status="Projects"><i class="fas fa-tasks" style="margin-right:7px;"></i>Projects</button>
+  <button class="footer-btn" data-status="Clients"><i class="fas fa-users" style="margin-right:7px;"></i>Clients</button>
+  <button class="footer-btn" data-status="Websites"><i class="fas fa-globe" style="margin-right:7px;"></i>Websites</button>
+  <button class="footer-btn" data-status="Gallery"><i class="fas fa-image" style="margin-right:7px;"></i>Gallery</button>
+  <button class="footer-btn" data-status="Announcement"><i class="fas fa-bullhorn" style="margin-right:7px;"></i>Announcement</button>
+</footer>
+<div id="status-modal" class="modal-status" style="display:none;">
+  <div class="modal-content" role="alert" aria-live="assertive">Status update pending.</div>
+</div>
+
+<script>
+  // --- SECURITY LAYER ---
+  (function() {
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+    ['copy','cut','paste'].forEach(evt=>document.addEventListener(evt,e=>e.preventDefault()));
+    document.addEventListener('dragstart', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' ||
+        (e.ctrlKey && ['c','u','s','a','p','x'].includes(e.key.toLowerCase())) ||
+        (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()))
+      ) { e.preventDefault(); }
+    });
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > 200 ||
+          window.outerHeight - window.innerHeight > 200) {
+        document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;'>Developer tools not allowed.</h1>";
+      }
+    }, 1000);
+  })();
+
+  // --- LOCAL IST TIME DISPLAY ---
+  function updateISTTime() {
+    let d = new Date();
+    let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    let istDate = new Date(utc + (5.5 * 60 * 60 * 1000));
+    let hh = String(istDate.getHours()).padStart(2,'0');
+    let mm = String(istDate.getMinutes()).padStart(2,'0');
+    let day = String(istDate.getDate()).padStart(2,'0');
+    let monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    let month = monthNames[istDate.getMonth()];
+    let year = istDate.getFullYear();
+    let istStr = `${hh}:${mm} IST | ${day}-${month}-${year}`;
+    document.getElementById("currentISTtime").innerHTML = istStr;
+  }
+  updateISTTime();
+  setInterval(updateISTTime, 60000);
+
+  // --- DROPDOWN ---
+  const btn=document.getElementById('getInTouchBtn');
+  const menu=document.getElementById('dropdownMenu');
+  btn.addEventListener('click',e=>{e.stopPropagation();menu.classList.toggle('show');});
+  document.addEventListener('click',()=>menu.classList.remove('show'));
+
+  // --- TIMELINE NAVIGATION ---
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  const sections = document.querySelectorAll('.section-content');
+  const contentArea = document.getElementById('contentArea');
+  const toggleSwitch = document.getElementById('toggleSwitch');
+  function showTimelineView() {
+    contentArea.classList.remove('full-profile');
+    sections.forEach(sec => sec.classList.remove('active'));
+    const activeItem = document.querySelector('.timeline-item.active');
+    if (activeItem) {
+      document.getElementById(activeItem.getAttribute('data-section')).classList.add('active');
+    }
+  }
+  function showFullView() {
+    contentArea.classList.add('full-profile');
+    sections.forEach(sec => sec.classList.add('active'));
+  }
+  toggleSwitch.addEventListener('change', () => {
+    if(toggleSwitch.checked){
+      showFullView();
+    } else {
+      showTimelineView();
+    }
+  });
+  function activateTimelineItem(item) {
+    timelineItems.forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    if(toggleSwitch.checked){
+      toggleSwitch.checked = false;
+      contentArea.classList.remove('full-profile');
+    }
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(item.getAttribute('data-section')).classList.add('active');
+  }
+  timelineItems.forEach(item => {
+    item.addEventListener('click', () => activateTimelineItem(item));
+    item.addEventListener('touchstart', () => activateTimelineItem(item), {passive:true});
+  });
+  window.addEventListener('DOMContentLoaded', showTimelineView);
+  window.addEventListener('scroll', () => {
+    if (!toggleSwitch.checked) return;
+    let scrollPos = window.scrollY + window.innerHeight / 3;
+    let currentSectionId = null;
+    sections.forEach(sec => {
+      if (scrollPos >= sec.offsetTop) currentSectionId = sec.id;
+    });
+    if (currentSectionId) {
+      timelineItems.forEach(item => {
+        item.classList.toggle('active', item.getAttribute('data-section') === currentSectionId);
+      });
+    }
+  });
+
+  // --- Footer Status Popup ---
+  const footerBtns = document.querySelectorAll('.footer-btn');
+  const modal = document.getElementById('status-modal');
+  footerBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      modal.style.display = 'flex';
+      modal.querySelector('.modal-content').textContent = 'Status update pending.';
+    });
+  });
+  modal.addEventListener('click', function(){ modal.style.display = 'none'; });
+  window.addEventListener('keydown', function(e){ if(e.key==='Escape'){ modal.style.display = 'none'; } });
+
+  // --- DARK/LIGHT MODE ---
+  function setMode(mode) {
+    document.documentElement.classList.toggle('light-mode', mode === 'light');
+    document.getElementById('modeToggleBtn').setAttribute('data-mode', mode);
+    document.getElementById('modeText').textContent = mode === 'light' ? "Light Mode":"Dark Mode";
+    window.localStorage.setItem('vaishal_mode', mode);
+  }
+  (function() {
+    let userMode = window.localStorage.getItem('vaishal_mode');
+    if(!userMode){
+      userMode = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    setMode(userMode);
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e=>{
+      if (!window.localStorage.getItem('vaishal_mode')) setMode(e.matches?'light':'dark');
+    });
+  })();
+  var modeToggleBtn = document.getElementById('modeToggleBtn');
+  modeToggleBtn.addEventListener('click', function() {
+    let current = document.documentElement.classList.contains('light-mode') ? 'light':'dark';
+    setMode(current === 'dark' ? 'light':'dark');
+  });
+  modeToggleBtn.addEventListener('keydown',function(e){
+    if(e.key==='Enter' || e.key===' '){e.preventDefault();this.click();}
+  });
+</script>
+</body>
+</html>
